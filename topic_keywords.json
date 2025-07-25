@@ -1,0 +1,7 @@
+{
+  "travel": ["trip", "travel", "vacation", "flight", "airport", "destination"],
+  "technology": ["ai", "programming", "tech", "software", "language", "machine", "model"],
+  "weather": ["cold", "hot", "rain", "sunny", "forecast", "weather"],
+  "food": ["restaurant", "dinner", "lunch", "cuisine", "food", "dish", "snack"],
+  "work": ["deadline", "project", "job", "career", "client", "meeting"]
+}
