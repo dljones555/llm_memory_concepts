@@ -1,0 +1,105 @@
+{
+  "user123_20250725_140822": {
+    "user_id": "user123",
+    "session_name": "AI Research Discussion",
+    "start_time": "2025-07-25T14:08:22.675838",
+    "message_count": 8,
+    "topics_discussed": [
+      "technology",
+      "topic_6",
+      "topic_7"
+    ],
+    "active": false,
+    "last_activity": "2025-07-25T14:08:22.691037",
+    "end_time": "2025-07-25T14:08:25.545247"
+  },
+  "thx1138_20250725_141033": {
+    "user_id": "thx1138",
+    "session_name": "Chat Session 14:10",
+    "start_time": "2025-07-25T14:10:33.728370",
+    "message_count": 0,
+    "topics_discussed": [],
+    "active": false,
+    "end_time": "2025-07-25T14:10:40.328009"
+  },
+  "thx-1138_20250725_141053": {
+    "user_id": "thx-1138",
+    "session_name": "Chat Session 14:10",
+    "start_time": "2025-07-25T14:10:53.768697",
+    "message_count": 2,
+    "topics_discussed": [
+      "weather"
+    ],
+    "active": false,
+    "last_activity": "2025-07-25T14:11:12.205266",
+    "end_time": "2025-07-25T14:11:12.205266"
+  },
+  "demo_user_20250725_141828": {
+    "user_id": "demo_user",
+    "session_name": "Chatbot Demo Session",
+    "start_time": "2025-07-25T14:18:28.305556",
+    "message_count": 8,
+    "topics_discussed": [
+      "topic_6",
+      "topic_7",
+      "topic_8"
+    ],
+    "active": false,
+    "last_activity": "2025-07-25T14:18:41.037943",
+    "end_time": "2025-07-25T14:18:45.576211"
+  },
+  "thx-1138_20250725_142018": {
+    "user_id": "thx-1138",
+    "session_name": "Chat Session 14:20",
+    "start_time": "2025-07-25T14:20:18.371654",
+    "message_count": 2,
+    "topics_discussed": [
+      "topic_7",
+      "food"
+    ],
+    "active": false,
+    "last_activity": "2025-07-25T14:20:48.483570",
+    "end_time": "2025-07-25T14:20:48.483570"
+  },
+  "demo_user_20250725_142243": {
+    "user_id": "demo_user",
+    "session_name": "Chatbot Demo Session",
+    "start_time": "2025-07-25T14:22:43.713710",
+    "message_count": 8,
+    "topics_discussed": [
+      "topic_6",
+      "topic_7",
+      "topic_8"
+    ],
+    "active": false,
+    "last_activity": "2025-07-25T14:22:58.095007",
+    "end_time": "2025-07-25T14:23:04.091171"
+  },
+  "thx-1138_20250725_142357": {
+    "user_id": "thx-1138",
+    "session_name": "Chat Session 14:23",
+    "start_time": "2025-07-25T14:23:57.841780",
+    "message_count": 8,
+    "topics_discussed": [
+      "topic_9",
+      "topic_6",
+      "topic_7"
+    ],
+    "active": false,
+    "last_activity": "2025-07-25T14:28:40.264601",
+    "end_time": "2025-07-25T14:29:41.348676"
+  },
+  "thx-1138_20250725_143927": {
+    "user_id": "thx-1138",
+    "session_name": "Chat Session 14:39",
+    "start_time": "2025-07-25T14:39:27.448152",
+    "message_count": 4,
+    "topics_discussed": [
+      "topic_7",
+      "topic_6"
+    ],
+    "active": false,
+    "last_activity": "2025-07-25T14:40:06.816335",
+    "end_time": "2025-07-25T14:40:09.142478"
+  }
+}

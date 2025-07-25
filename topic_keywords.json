@@ -1,7 +1,101 @@
 {
-  "travel": ["trip", "travel", "vacation", "flight", "airport", "destination"],
-  "technology": ["ai", "programming", "tech", "software", "language", "machine", "model"],
-  "weather": ["cold", "hot", "rain", "sunny", "forecast", "weather"],
-  "food": ["restaurant", "dinner", "lunch", "cuisine", "food", "dish", "snack"],
-  "work": ["deadline", "project", "job", "career", "client", "meeting"]
+  "travel": [
+    "trip",
+    "travel",
+    "vacation",
+    "flight",
+    "airport",
+    "destination"
+  ],
+  "technology": [
+    "ai",
+    "programming",
+    "tech",
+    "software",
+    "language",
+    "machine",
+    "model"
+  ],
+  "weather": [
+    "cold",
+    "hot",
+    "rain",
+    "sunny",
+    "forecast",
+    "weather"
+  ],
+  "food": [
+    "restaurant",
+    "dinner",
+    "lunch",
+    "cuisine",
+    "food",
+    "dish",
+    "snack"
+  ],
+  "work": [
+    "deadline",
+    "project",
+    "job",
+    "career",
+    "client",
+    "meeting"
+  ],
+  "topic_6": [
+    "llms",
+    "memory",
+    "attention",
+    "remember",
+    "use",
+    "within",
+    "however",
+    "persistent",
+    "training",
+    "lack",
+    "context",
+    "between",
+    "fascinating",
+    "assistant",
+    "their",
+    "architectures",
+    "mechanisms",
+    "window",
+    "conversations"
+  ],
+  "topic_7": [
+    "databases",
+    "vector",
+    "about",
+    "user",
+    "more",
+    "tell",
+    "purpose"
+  ],
+  "topic_8": [
+    "main",
+    "neural",
+    "what",
+    "types",
+    "networks"
+  ],
+  "topic_9": [
+    "doesnt",
+    "juice",
+    "taco",
+    "spicy",
+    "consumption",
+    "lime",
+    "crunchy",
+    "fit"
+  ],
+  "taco_love": [
+    "love",
+    "mexico",
+    "eating",
+    "pastor",
+    "tacos",
+    "from",
+    "carnitas",
+    "especially"
+  ]
 }

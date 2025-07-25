@@ -65,11 +65,73 @@ class MemoryStreamAgent:
             if top_score > 0:
                 return top_topic
 
-        # Create new topic if not found
-        new_topic = f"topic_{len(self.topic_clusters)+1}"
+        # Use LLM to generate a meaningful topic name
+        new_topic = self.generate_topic_name_with_llm(text, keywords)
+        if not new_topic:
+            # Fallback to generic naming
+            new_topic = f"topic_{len(self.topic_clusters)+1}"
+        
         self.topic_clusters[new_topic] = list(keywords)
         self.save_topic_clusters()
         return new_topic
+
+    def generate_topic_name_with_llm(self, text: str, keywords: Set[str]) -> str:
+        """Generate a meaningful topic name using the LLM."""
+        if not self.github_token:
+            return None
+        
+        # Create a prompt for topic naming
+        keywords_str = ", ".join(list(keywords)[:10])  # Use first 10 keywords
+        prompt = f"""Based on this text and keywords, suggest a short, descriptive topic name (1-2 words, lowercase, use underscores):
+
+Text: "{text}"
+Keywords: {keywords_str}
+
+Examples of good topic names:
+- "mexican_food" for taco discussions
+- "ai_models" for LLM conversations  
+- "travel_planning" for trip discussions
+- "weather_forecast" for weather talk
+
+Topic name:"""
+
+        url = "https://models.inference.ai.azure.com/chat/completions"
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.github_token}"
+        }
+        
+        payload = {
+            "model": "gpt-4o-mini",
+            "messages": [
+                {"role": "system", "content": "You are a helpful assistant that creates short, descriptive topic names. Return only the topic name, nothing else."},
+                {"role": "user", "content": prompt}
+            ],
+            "max_tokens": 20,
+            "temperature": 0.3
+        }
+        
+        try:
+            response = requests.post(url, headers=headers, json=payload, timeout=10)
+            response.raise_for_status()
+            result = response.json()
+            topic_name = result['choices'][0]['message']['content'].strip().lower()
+            
+            # Clean up the topic name
+            topic_name = topic_name.replace(' ', '_').replace('-', '_')
+            # Remove quotes and extra characters
+            topic_name = ''.join(c for c in topic_name if c.isalnum() or c == '_')
+            
+            # Validate topic name
+            if len(topic_name) > 0 and len(topic_name) < 30:
+                return topic_name
+            else:
+                return None
+                
+        except Exception as e:
+            print(f"⚠️  Could not generate topic name: {e}")
+            return None
 
     def calculate_similarity(self, kw1: Set[str], kw2: Set[str]) -> float:
         if not kw1 or not kw2:
