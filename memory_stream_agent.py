@@ -5,7 +5,12 @@ from typing import List, Set, Dict, Tuple, Optional
 from collections import defaultdict, Counter
 import re
 import os
-import openai
+import requests
+try:
+    from dotenv import load_dotenv
+    load_dotenv()  # Load environment variables from .env file
+except ImportError:
+    pass  # dotenv not installed, will use system environment variables
 
 @dataclass
 class MemoryItem:
@@ -21,7 +26,7 @@ class MemoryItem:
         return (datetime.datetime.now() - self.timestamp).total_seconds() / 3600
 
 class MemoryStreamAgent:
-    def __init__(self, topic_config_file: str = "topic_keywords.json"):
+    def __init__(self, topic_config_file: str = "topic_keywords.json", github_token: str = None):
         self.memories: List[MemoryItem] = []
         self.topic_transitions: Dict[str, List[str]] = defaultdict(list)
         self.keyword_pairs: Dict[Tuple[str, str], int] = defaultdict(int)
@@ -30,6 +35,9 @@ class MemoryStreamAgent:
         self.last_topic_emitted = None
         self.load_topic_clusters(topic_config_file)
         self.topic_config_file = topic_config_file
+        self.github_token = github_token or os.getenv('GH_TOKEN')
+        if not self.github_token:
+            raise ValueError("GitHub token is required. Set GH_TOKEN environment variable or pass it to constructor.")
 
     def load_topic_clusters(self, path):
         if os.path.exists(path):
@@ -148,43 +156,64 @@ class MemoryStreamAgent:
             m.conversation_id = new_id
         return (conversation_id, new_id)
 
-    def create_openai_summary(self, conversation_id: str, model="gpt-4") -> str:
+    def create_openai_summary(self, conversation_id: str, model="gpt-4o-mini") -> str:
+        """Create a summary using GitHub Models API."""
         conv = self.conversation_sessions.get(conversation_id, [])
         if not conv:
             return "No conversation found."
 
         chat_log = "\n".join(f"User: {m.content}" for m in conv)
         prompt = f"Summarize the following conversation:\n{chat_log}"
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=[
+        
+        # GitHub Models API endpoint
+        url = "https://models.inference.ai.azure.com/chat/completions"
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.github_token}"
+        }
+        
+        payload = {
+            "model": model,
+            "messages": [
                 {"role": "system", "content": "You are a helpful assistant summarizing user conversations."},
                 {"role": "user", "content": prompt}
-            ]
-        )
-        return response.choices[0].message['content']
-
-def split_conversation_by_topic(self, conversation_id: str) -> Dict[str, List[MemoryItem]]:
-    conv = self.conversation_sessions.get(conversation_id, [])
-    by_topic = defaultdict(list)
-    for item in conv:
-        topic = list(item.topic_tags)[0]
-        by_topic[topic].append(item)
-    return by_topic
-
-def create_split_chats_from_conversation(self, conversation_id: str, model="gpt-4") -> Dict[str, str]:
-    topic_groups = self.split_conversation_by_topic(conversation_id)
-    new_chat_ids = {}
-    
-    for topic, items in topic_groups.items():
-        new_id = f"{conversation_id}_{topic}"
-        self.conversation_sessions[new_id] = items
-        for m in items:
-            m.conversation_id = new_id
+            ],
+            "max_tokens": 500,
+            "temperature": 0.7
+        }
         
-        summary = self.create_openai_summary(new_id, model=model)
-        new_chat_ids[new_id] = summary
+        try:
+            response = requests.post(url, headers=headers, json=payload)
+            response.raise_for_status()
+            result = response.json()
+            return result['choices'][0]['message']['content']
+        except requests.exceptions.RequestException as e:
+            return f"Error generating summary: {str(e)}"
+        except (KeyError, IndexError) as e:
+            return f"Error parsing response: {str(e)}"
 
-    return new_chat_ids
+    def split_conversation_by_topic(self, conversation_id: str) -> Dict[str, List[MemoryItem]]:
+        conv = self.conversation_sessions.get(conversation_id, [])
+        by_topic = defaultdict(list)
+        for item in conv:
+            topic = list(item.topic_tags)[0]
+            by_topic[topic].append(item)
+        return by_topic
+
+    def create_split_chats_from_conversation(self, conversation_id: str, model="gpt-4o-mini") -> Dict[str, str]:
+        topic_groups = self.split_conversation_by_topic(conversation_id)
+        new_chat_ids = {}
+        
+        for topic, items in topic_groups.items():
+            new_id = f"{conversation_id}_{topic}"
+            self.conversation_sessions[new_id] = items
+            for m in items:
+                m.conversation_id = new_id
+            
+            summary = self.create_openai_summary(new_id, model=model)
+            new_chat_ids[new_id] = summary
+
+        return new_chat_ids
 
 
