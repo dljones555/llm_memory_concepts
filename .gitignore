@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.log
+*.env
+
+# Virtual environments
+.venv/
+
+# VS Code settings
+.vscode/
+
+# Topic config (if you want to regenerate it)
+# topic_keywords.json
