@@ -5,8 +5,8 @@
     "start_time": "2025-07-25T14:08:22.675838",
     "message_count": 8,
     "topics_discussed": [
-      "technology",
       "topic_6",
+      "technology",
       "topic_7"
     ],
     "active": false,
@@ -81,8 +81,8 @@
     "start_time": "2025-07-25T14:23:57.841780",
     "message_count": 8,
     "topics_discussed": [
-      "topic_9",
       "topic_6",
+      "topic_9",
       "topic_7"
     ],
     "active": false,
@@ -95,11 +95,24 @@
     "start_time": "2025-07-25T14:39:27.448152",
     "message_count": 4,
     "topics_discussed": [
-      "topic_7",
-      "topic_6"
+      "topic_6",
+      "topic_7"
     ],
     "active": false,
     "last_activity": "2025-07-25T14:40:06.816335",
     "end_time": "2025-07-25T14:40:09.142478"
+  },
+  "thx-1138_20250725_144227": {
+    "user_id": "thx-1138",
+    "session_name": "Chat Session 14:42",
+    "start_time": "2025-07-25T14:42:27.831560",
+    "message_count": 4,
+    "topics_discussed": [
+      "topic_7",
+      "topic_6"
+    ],
+    "active": false,
+    "last_activity": "2025-07-25T14:49:31.017008",
+    "end_time": "2025-07-25T14:49:50.793176"
   }
 }

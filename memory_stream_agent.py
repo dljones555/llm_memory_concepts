@@ -5,7 +5,7 @@ from typing import List, Set, Dict, Tuple, Optional
 from collections import defaultdict, Counter
 import re
 import os
-import requests
+
 try:
     from dotenv import load_dotenv
     load_dotenv()  # Load environment variables from .env file
